@@ -1,0 +1,9 @@
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
+#include "jbool_test.hpp"
+#include "jnull_test.hpp"
+#include "jnumber_test.hpp"
+#include "jstring_test.hpp"
+#include "jdate_test.hpp"
+#include "jarray_test.hpp"
+#include "jobject_test.hpp"
