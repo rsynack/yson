@@ -27,6 +27,10 @@ namespace yson {
             void addUnsigned(uint64_t number);
             void addFloating(double number);
 
+            uint64_t getUnsinged() {
+                return this->uintValue;
+            }
+
             const std::string toString() const;
     };
 }

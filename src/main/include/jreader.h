@@ -8,7 +8,7 @@
 #include "jnumber.h"
 #include "jdocument.h"
 
-#include <fstream>
+#include <istream>
 
 namespace yson {
 
@@ -16,14 +16,16 @@ namespace yson {
         public:
             JReader();
             JDocument parse(const char* filename);
+            JDocument parse(std::istream &ifs);
+            JDocument parse(std::string json);
 
         private:
-            JObject parseJObject(std::ifstream &ifs);
-            void parseAttribute(std::ifstream &ifs, JObject &obj);
-            JValue* parseValue(std::ifstream &ifs);
-            JArray parseArray(std::ifstream &ifs);
-            JString parseString(std::ifstream &ifs);
-            JNumber parseNumber(std::ifstream &ifs, char c, bool negative);
+            JObject parseJObject(std::istream &ifs);
+            void parseAttribute(std::istream &ifs, JObject &obj);
+            JValue* parseValue(std::istream &ifs);
+            JArray parseArray(std::istream &ifs);
+            JString parseString(std::istream &ifs);
+            JNumber parseNumber(std::istream &ifs, char c, bool negative);
 
     };
 }

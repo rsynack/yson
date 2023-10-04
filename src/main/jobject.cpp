@@ -66,6 +66,10 @@ void JObject::addDate(string name, time_t time) {
     this->addValue(name, shared_ptr<JValue>(date));
 }
 
+shared_ptr<JNumber> JObject::getNumber(string name) {
+    return dynamic_pointer_cast<JNumber>(this->values.at(name));
+}
+
 void JObject::remove(string name) {
     this->values.erase(name);
     int index = this->index.at(name);

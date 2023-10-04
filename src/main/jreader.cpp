@@ -17,30 +17,41 @@ JReader::JReader() {
 }
 
 JDocument JReader::parse(const char* filename) {
-    std::ifstream ifs;
+    ifstream ifs;
 
-    ifs.open(filename, std::ifstream::in);
+    ifs.open(filename, ifstream::in);
 
-    char c = ifs.get();
+    JDocument jdocument = parse(ifs);
+
+    ifs.close();
+
+    return jdocument;
+}
+
+JDocument JReader::parse(string json) {
+    istringstream strstream(json);
+    return parse(strstream);
+}
+
+JDocument JReader::parse(istream &istream) {
+    char c = istream.get();
 
     JValue *value = nullptr;
 
     bool isObject = false;
-    while (ifs.good()) {
+    while (istream.good()) {
 
         if (c == '{') {
-            JObject jobject = parseJObject(ifs);
+            JObject jobject = parseJObject(istream);
             value = &jobject;
             isObject = true;
         } else if (c == '[') {
-            JArray jarray = parseArray(ifs);
+            JArray jarray = parseArray(istream);
             value = &jarray;
         }
 
-        c = ifs.get();
+        c = istream.get();
     }
-
-    ifs.close();
     
     if (isObject) {
         shared_ptr<JObject> ptr(dynamic_cast<JObject*>(value));
@@ -51,7 +62,7 @@ JDocument JReader::parse(const char* filename) {
     return JDocument(ptr);
 }
 
-JObject JReader::parseJObject(std::ifstream &ifs) {
+JObject JReader::parseJObject(istream &ifs) {
     JObject obj;
 
     char c = ifs.get();
@@ -68,7 +79,7 @@ JObject JReader::parseJObject(std::ifstream &ifs) {
     return obj;
 }
 
-void JReader::parseAttribute(std::ifstream &ifs, JObject &obj) {
+void JReader::parseAttribute(istream &ifs, JObject &obj) {
     
     stringstream sstream;
     string attrName;
@@ -96,7 +107,7 @@ void JReader::parseAttribute(std::ifstream &ifs, JObject &obj) {
     }
 }
 
-JValue* JReader::parseValue(std::ifstream &ifs) {
+JValue* JReader::parseValue(istream &ifs) {
     JValue *value = nullptr;
 
     stringstream sstream;
@@ -146,7 +157,7 @@ JValue* JReader::parseValue(std::ifstream &ifs) {
     return value;
 }
 
-JArray JReader::parseArray(std::ifstream &ifs) {
+JArray JReader::parseArray(istream &ifs) {
 
     JArray array;
 
@@ -170,7 +181,7 @@ JArray JReader::parseArray(std::ifstream &ifs) {
 }
 
 
-JString JReader::parseString(std::ifstream &ifs) {
+JString JReader::parseString(istream &ifs) {
 
     stringstream sstream;
     
@@ -188,7 +199,7 @@ JString JReader::parseString(std::ifstream &ifs) {
     return JString(sstream.str());
 }
 
-JNumber JReader::parseNumber(std::ifstream &ifs, char c, bool negative) {
+JNumber JReader::parseNumber(istream &ifs, char c, bool negative) {
     bool floatingPoint = false;
     stringstream sstream;
 

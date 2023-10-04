@@ -10,6 +10,7 @@
 #include "jvalue.h"
 #include "jarray.h"
 #include "jnull.h"
+#include "jnumber.h"
 
 namespace yson {
 
@@ -23,6 +24,7 @@ namespace yson {
 
         public:
             JObject();
+
             void addValue(std::string name, std::shared_ptr<JValue> value);
             void addValue(std::string name, JObject value);
             void addValue(std::string name, JArray value);
@@ -33,6 +35,8 @@ namespace yson {
             void addBoolean(std::string name, bool value);
             void addString(std::string name, std::string value);
             void addDate(std::string name, time_t time);
+
+            std::shared_ptr<JNumber> getNumber(std::string name);
 
             void remove(std::string name);
 
