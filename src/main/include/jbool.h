@@ -15,6 +15,8 @@ namespace yson {
         public:
             JBool(bool value);
 
+            bool getValue() { return this->value; };
+
             const std::string toString() const;
     };
 }

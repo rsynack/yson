@@ -47,6 +47,18 @@ TEST_CASE( "create JObject with properties", JOBJECT_TEST_TAG) {
     JObject jobject = createJObject();
 
     REQUIRE(jobject.toString() == getExcpectedValue());
+    REQUIRE(jobject.getBoolean("myBoolean"));
+    REQUIRE(jobject.getNumber("myNumber")->getSinged() == 42);
+    REQUIRE(jobject.getString("myString") == "Hello World!");
+}
+
+TEST_CASE( "check JObject InvalidTypeError", JOBJECT_TEST_TAG) {
+    JObject jobject = createJObject();
+
+    REQUIRE_THROWS_WITH(jobject.getNumber("myBoolean"), "Invalid type for name 'myBoolean'.");
+    REQUIRE_THROWS_WITH(jobject.getString("myNumber"), "Invalid type for name 'myNumber'.");
+    REQUIRE_THROWS_WITH(jobject.getDate("myString"), "Invalid type for name 'myString'.");
+    REQUIRE_THROWS_WITH(jobject.getBoolean("myString"), "Invalid type for name 'myString'.");
 }
 
 TEST_CASE( "create JObject with embedded object", JOBJECT_TEST_TAG) {

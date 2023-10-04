@@ -33,7 +33,9 @@ TEST_CASE( "create JString string value", JSTRING_TEST_TAG ) {
     JString jstring(testValue);
     
     string expectedValue = createExpectedValue(testValue);
+
     REQUIRE(jstring.toString() ==  expectedValue);
+    REQUIRE(jstring.getValue() ==  testValue);
 }
 
 TEST_CASE( "create JString char value", JSTRING_TEST_TAG ) {
@@ -41,7 +43,9 @@ TEST_CASE( "create JString char value", JSTRING_TEST_TAG ) {
     JString jstring(testValue);
     
     string expectedValue = createExpectedValue(testValue);
+
     REQUIRE(jstring.toString() ==  expectedValue);
+    REQUIRE(jstring.getValue() ==  testValue);
 }
 
 #endif

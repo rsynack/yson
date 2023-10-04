@@ -15,6 +15,8 @@ namespace yson {
         public:
             JString(std::string value);
 
+            std::string getValue() { return this->value; }
+
             const std::string toString() const;
 
     };

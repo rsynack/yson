@@ -16,6 +16,8 @@ namespace yson {
         public:
             JDate(time_t value);
 
+            time_t getValue() { return this->value; }
+
             const std::string toString() const;
     };
 }

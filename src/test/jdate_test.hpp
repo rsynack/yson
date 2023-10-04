@@ -33,6 +33,7 @@ TEST_CASE( "create JDate value", "[jdate]" ) {
     JDate date(time);
 
     REQUIRE(date.toString() == "2023-09-05T19:05:14Z");
+    REQUIRE(date.getValue() == time);
 }
 
 #endif

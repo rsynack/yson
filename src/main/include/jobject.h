@@ -37,6 +37,9 @@ namespace yson {
             void addDate(std::string name, time_t time);
 
             std::shared_ptr<JNumber> getNumber(std::string name);
+            bool getBoolean(std::string name);
+            std::string getString(std::string name);
+            time_t getDate(std::string name);
 
             void remove(std::string name);
 
