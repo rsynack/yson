@@ -10,53 +10,33 @@ JNumber::JNumber() {
 
 }
 
-void JNumber::add(int64_t value) {
-    this->intValue = value;
-    this->valueType = ValueType::INT;
+void JNumber::setSinged(int64_t value) {
+    this->singedValue = value;
+    this->valueType = ValueType::SINGED;
 }
 
-void JNumber::addUnsigned(uint64_t value) {
-    this->uintValue = value;
-    this->valueType = ValueType::UINT;
+void JNumber::setUnsigned(uint64_t value) {
+    this->unsingedValue = value;
+    this->valueType = ValueType::UNSINGED;
 }
 
-void JNumber::addFloating(double value) {
-    this->doubleValue = value;
-    this->valueType = ValueType::DOUBLE;
-}
-
-const string JNumber::convertDoubleValueToString() const {
-    ostringstream oss;
-    oss.precision(numeric_limits<double>::digits10);
-    oss << fixed << this->doubleValue;
-
-    string str = oss.str();
-
-    // Remove padding
-    // This must be done in two steps because of numbers like 700.00
-    size_t pos1 = str.find_last_not_of("0");
-    if(pos1 != string::npos)
-        str.erase(pos1+1);
-
-    size_t pos2 = str.find_last_not_of(".");
-    if(pos2 != string::npos)
-        str.erase(pos2+1);
-
-    return str;
+void JNumber::setFloating(double value) {
+    this->floatingValue = value;
+    this->valueType = ValueType::FLOATING;
 }
 
 const string JNumber::toString() const {
     stringstream sstream;
 
     switch(this->valueType) {
-        case ValueType::INT:
-            sstream << this->intValue;
+        case ValueType::SINGED:
+            sstream << this->singedValue;
             break;
-        case ValueType::UINT:
-            sstream << this->uintValue;
+        case ValueType::UNSINGED:
+            sstream << this->unsingedValue;
             break;
-        case ValueType::DOUBLE:
-            sstream << to_string(this->doubleValue);
+        case ValueType::FLOATING:
+            sstream << to_string(this->floatingValue);
             break;
     }
 

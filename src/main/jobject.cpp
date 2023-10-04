@@ -35,19 +35,19 @@ void JObject::addValue(string name, JNull value) {
 
 void JObject::addNumber(string name, int64_t value) {
     JNumber *number = new JNumber();
-    number->add(value);
+    number->setSinged(value);
     this->addValue(name, shared_ptr<JValue>(number));
 }
 
 void JObject::addNumber(string name, uint64_t value) {
     JNumber *number = new JNumber();
-    number->addUnsigned(value);
+    number->setUnsigned(value);
     this->addValue(name, shared_ptr<JValue>(number));
 }
 
 void JObject::addNumber(string name, double value) {
     JNumber *number = new JNumber();
-    number->addFloating(value);
+    number->setFloating(value);
     this->addValue(name, shared_ptr<JValue>(number));
 }
 

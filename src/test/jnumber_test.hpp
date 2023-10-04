@@ -21,7 +21,7 @@ TEST_CASE( "is include guard macro in jnumber.h implemented", "[jnumber]" ) {
 
 void testJNumberWithValue(const int64_t testValue, string excpected) {
     JNumber jnumber;
-    jnumber.add(testValue);
+    jnumber.setSinged(testValue);
 
     REQUIRE(jnumber.toString() ==  excpected);
 }
@@ -36,7 +36,7 @@ TEST_CASE( "create JNumber with min int64_t value", "[jnumber]" ) {
 
 void testJNumberWithUnsigned4Value(const uint64_t testValue, const string excpected) {
     JNumber jnumber;
-    jnumber.addUnsigned(testValue);
+    jnumber.setUnsigned(testValue);
 
     REQUIRE(jnumber.toString() ==  excpected);
 }
@@ -51,7 +51,7 @@ TEST_CASE( "create JNumber with min unsigned value", "[jnumber]" ) {
 
 void testJNumberWithFloatingValue(const double testValue, const string expected) {
     JNumber jnumber;
-    jnumber.addFloating(testValue);
+    jnumber.setFloating(testValue);
     
     REQUIRE(jnumber.toString() ==  expected);
 }

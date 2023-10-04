@@ -228,15 +228,15 @@ JNumber JReader::parseNumber(istream &ifs, char c, bool negative) {
     string numberStr = sstream.str();
     if (floatingPoint) {
         double number = stod(numberStr);
-        jnumber.addFloating(number);
+        jnumber.setFloating(number);
     } else if(negative) {
         int64_t number;
         sstream >> number;
-        jnumber.add(number);
+        jnumber.setSinged(number);
     } else {
         uint64_t number;
         sstream >> number;
-        jnumber.addUnsigned(number);
+        jnumber.setUnsigned(number);
     }
 
     return jnumber;

@@ -9,12 +9,12 @@ namespace yson {
 
     class JNumber : public JValue {
 
-        enum ValueType { INT, UINT, DOUBLE };
+        enum ValueType { SINGED, UNSINGED, FLOATING };
 
         private:
-            int64_t intValue;
-            uint64_t uintValue;
-            double doubleValue;
+            int64_t singedValue;
+            uint64_t unsingedValue;
+            double floatingValue;
 
             ValueType valueType;
 
@@ -23,12 +23,20 @@ namespace yson {
         public:
             JNumber();
 
-            void add(int64_t number);
-            void addUnsigned(uint64_t number);
-            void addFloating(double number);
+            void setSinged(int64_t number);
+            void setUnsigned(uint64_t number);
+            void setFloating(double number);
+
+            int64_t getSinged() {
+                return this->singedValue;
+            }
 
             uint64_t getUnsinged() {
-                return this->uintValue;
+                return this->unsingedValue;
+            }
+
+            double getFloating() {
+                return this->floatingValue;
             }
 
             const std::string toString() const;

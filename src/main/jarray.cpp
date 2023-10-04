@@ -28,19 +28,19 @@ void JArray::addValue(JArray value) {
 
 void JArray::addNumber(int64_t value) {
     JNumber number;
-    number.add(value);
+    number.setSinged(value);
     this->addValue(make_shared<JNumber>(number));
 }
 
 void JArray::addNumber(uint64_t value) {
     JNumber number;
-    number.addUnsigned(value);
+    number.setUnsigned(value);
     this->addValue(make_shared<JNumber>(number));
 }
 
 void JArray::addNumber(double value) {
     JNumber number;
-    number.addFloating(value);
+    number.setFloating(value);
     this->addValue(make_shared<JNumber>(number));
 }
 
