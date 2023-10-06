@@ -17,55 +17,49 @@ JObject::JObject() {
 
 }
 
-void JObject::addValue(string name, shared_ptr<JValue> value) {
-    this->keys.push_back(name);
-    this->index.emplace(make_pair(name, this->keys.size() - 1));
-    this->values.emplace(make_pair(name, value));
-}
-
 void JObject::addValue(string name, JObject value) {
-    this->addValue(name, make_shared<JObject>(value));
+    this->_addValue(name, make_shared<JObject>(value));
 }
 
 void JObject::addValue(string name, JArray value) {
-    this->addValue(name, make_shared<JArray>(value));
+    this->_addValue(name, make_shared<JArray>(value));
 }
 
 void JObject::addValue(string name, JNull value) {
-    this->addValue(name, make_shared<JNull>(value));
+    this->_addValue(name, make_shared<JNull>(value));
 }
 
 void JObject::addNumber(string name, int64_t value) {
     JNumber *number = new JNumber();
     number->setSinged(value);
-    this->addValue(name, shared_ptr<JValue>(number));
+    this->_addValue(name, shared_ptr<JNumber>(number));
 }
 
 void JObject::addNumber(string name, uint64_t value) {
     JNumber *number = new JNumber();
     number->setUnsigned(value);
-    this->addValue(name, shared_ptr<JValue>(number));
+    this->_addValue(name, shared_ptr<JNumber>(number));
 }
 
 void JObject::addNumber(string name, double value) {
     JNumber *number = new JNumber();
     number->setFloating(value);
-    this->addValue(name, shared_ptr<JValue>(number));
+    this->_addValue(name, shared_ptr<JNumber>(number));
 }
 
 void JObject::addBoolean(string name, bool value) {
     JBool *boolean = new JBool(value);
-    this->addValue(name, shared_ptr<JValue>(boolean));
+    this->_addValue(name, shared_ptr<JBool>(boolean));
 }
 
 void JObject::addString(string name, string value) {
     JString *str = new JString(value);
-    this->addValue(name, shared_ptr<JValue>(str));
+    this->_addValue(name, shared_ptr<JString>(str));
 }
 
 void JObject::addDate(string name, time_t time) {
     JDate *date = new JDate(time);
-    this->addValue(name, shared_ptr<JValue>(date));
+    this->_addValue(name, shared_ptr<JDate>(date));
 }
 
 shared_ptr<JNumber> JObject::getNumber(string name) {
