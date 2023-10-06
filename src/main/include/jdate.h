@@ -1,10 +1,10 @@
 #ifndef JDATE_H
 #define JDATE_H
 
-#include <string>
-
 #include "jvalue.h"
 #include "jnumber.h"
+
+#include <string>
 
 namespace yson {
 

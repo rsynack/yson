@@ -1,9 +1,9 @@
 #ifndef JNULL_H
 #define JNULL_H
 
-#include <string>
-
 #include "jvalue.h"
+
+#include <string>
 
 namespace yson {
 

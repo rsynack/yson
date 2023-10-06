@@ -1,12 +1,12 @@
 #ifndef JARRAY_H
 #define JARRAY_H
 
+#include "jvalue.h"
+#include "jobject.h"
+
 #include <vector>
 #include <memory>
 #include <iostream>
-
-#include "jvalue.h"
-#include "jobject.h"
 
 namespace yson {
 

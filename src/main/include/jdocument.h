@@ -1,10 +1,10 @@
 #ifndef JDOCUMENT_H
 #define JDOCUMENT_H
 
+#include "jvalue.h"
+
 #include <memory>
 #include <string>
-
-#include "jvalue.h"
 
 namespace yson {
 

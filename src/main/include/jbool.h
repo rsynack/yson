@@ -1,9 +1,9 @@
 #ifndef JBOOL_H
 #define JBOOL_H
 
-#include <string>
-
 #include "jvalue.h"
+
+#include <string>
 
 namespace yson {
 
@@ -15,7 +15,7 @@ namespace yson {
         public:
             JBool(bool value);
 
-            bool getValue() { return this->value; };
+            bool getValue() { return this->value; }
 
             const std::string toString() const;
     };
