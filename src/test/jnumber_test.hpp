@@ -24,6 +24,7 @@ void testJNumberWithValue(const int64_t testValue, string excpected) {
     jnumber.setSinged(testValue);
 
     REQUIRE(jnumber.toString() ==  excpected);
+    REQUIRE(jnumber.getSinged() ==  testValue);
 }
 
 TEST_CASE( "create JNumber with max int64_t value", "[jnumber]" ) {
@@ -39,6 +40,7 @@ void testJNumberWithUnsigned4Value(const uint64_t testValue, const string excpec
     jnumber.setUnsigned(testValue);
 
     REQUIRE(jnumber.toString() ==  excpected);
+    REQUIRE(jnumber.getUnsinged() ==  testValue);
 }
 
 TEST_CASE( "create JNumber with max unsigned value", "[jnumber]" ) {
@@ -54,6 +56,7 @@ void testJNumberWithFloatingValue(const double testValue, const string expected)
     jnumber.setFloating(testValue);
     
     REQUIRE(jnumber.toString() ==  expected);
+    REQUIRE(jnumber.getFloating() ==  testValue);
 }
 
 // TEST_CASE( "create JNumber with max floating value", "[jnumber]" ) {
