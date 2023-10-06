@@ -89,8 +89,10 @@ TEST_CASE( "create JArray with object values", JARRAY_TEST_TAG) {
     JArray array;
     array.addValue(obj1);
     array.addValue(obj2);
-    
+
     REQUIRE(array.toString() ==  "[{ \"myBool\": false }, { \"myNumber\": 42 }]");
+    REQUIRE(!array.getObject(0)->getBoolean("myBool"));
+    REQUIRE(array.getObject(1)->getNumber("myNumber")->getSinged() == 42);
 }
 
 

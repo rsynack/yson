@@ -38,8 +38,12 @@ TEST_CASE( "create JReader and parse JSON string to array", "[jreader]" ) {
     shared_ptr<JArray> root = jdocumet.getRoot<JArray>();
     shared_ptr<JArray> array = jdocumet.getArray();
 
-    //REQUIRE(root[1] == 42);
-    //REQUIRE(object[3]== 42);
+    REQUIRE(root->getNumber(0)->getUnsinged() == 33);
+    REQUIRE(root->getNumber(1)->getUnsinged() == 42);
+    REQUIRE(root->getNumber(2)->getUnsinged() == 78);
+    REQUIRE(array->getNumber(0)->getUnsinged() == 33);
+    REQUIRE(array->getNumber(1)->getUnsinged() == 42);
+    REQUIRE(array->getNumber(2)->getUnsinged() == 78);
 
     REQUIRE_THROWS_WITH(jdocumet.getObject(), "Invalid root node type 'JObject'.");
 }
