@@ -1,16 +1,24 @@
 #include "include/jdocument.h"
+#include "include/jobject.h"
+#include "include/jarray.h"
 
 using namespace std;
 using namespace yson;
 
-JDocument::JDocument(shared_ptr<JValue> root) {
-    this->root = root;
+shared_ptr<JObject> JDocument::getObject() {
+    shared_ptr<JObject> value = this->getRoot<JObject>();
+    if (value.get()) {
+        return value;
+    }
+
+    throw InvalidRootError("JObject");
 }
 
-shared_ptr<JValue> JDocument::getRoot() {
-    return this->root;
-}
+shared_ptr<JArray> JDocument::getArray() {
+    shared_ptr<JArray> value = this->getRoot<JArray>();
+    if (value.get()) {
+        return value;
+    }
 
-const string JDocument::toString() const {
-    return this->root->toString();
+    throw InvalidRootError("JArray");
 }

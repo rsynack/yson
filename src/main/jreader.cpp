@@ -5,6 +5,7 @@
 #include "include/jstring.h"
 #include "include/jnumber.h"
 #include "include/jnull.h"
+#include "include/root_not_found_error.h"
 
 #include <sstream>
 #include <fstream>
@@ -16,7 +17,7 @@ JReader::JReader() {
 
 }
 
-JDocument JReader::parse(const char* filename) {
+JDocument JReader::parseFile(const char* filename) {
     ifstream ifs;
 
     ifs.open(filename, ifstream::in);
@@ -36,30 +37,20 @@ JDocument JReader::parse(string json) {
 JDocument JReader::parse(istream &istream) {
     char c = istream.get();
 
-    JValue *value = nullptr;
-
-    bool isObject = false;
     while (istream.good()) {
 
         if (c == '{') {
             JObject jobject = parseJObject(istream);
-            value = &jobject;
-            isObject = true;
+            return JDocument(make_shared<JObject>(jobject));
         } else if (c == '[') {
             JArray jarray = parseArray(istream);
-            value = &jarray;
+            return JDocument(make_shared<JArray>(jarray));
         }
 
         c = istream.get();
     }
-    
-    if (isObject) {
-        shared_ptr<JObject> ptr(dynamic_cast<JObject*>(value));
-        return JDocument(ptr);
-    }
 
-    shared_ptr<JArray> ptr(dynamic_cast<JArray*>(value));
-    return JDocument(ptr);
+    throw RootNotFoundError();
 }
 
 JObject JReader::parseJObject(istream &ifs) {
@@ -83,7 +74,7 @@ void JReader::parseAttribute(istream &ifs, JObject &obj) {
     
     stringstream sstream;
     string attrName;
-    JValue *value = nullptr;
+    shared_ptr<JValue> value;
 
     char c = ifs.get();
     while(ifs.good()) {
@@ -101,14 +92,13 @@ void JReader::parseAttribute(istream &ifs, JObject &obj) {
         c = ifs.get();
     }
 
-    if (value != nullptr) {
-        shared_ptr<JValue> ptr(value);
-        obj._addValue(attrName, ptr);
+    if (value.get() != nullptr) {
+        obj._addValue(attrName, value);
     }
 }
 
-JValue* JReader::parseValue(istream &ifs) {
-    JValue *value = nullptr;
+shared_ptr<JValue> JReader::parseValue(istream &ifs) {
+    shared_ptr<JValue> value;
 
     stringstream sstream;
 
@@ -117,15 +107,15 @@ JValue* JReader::parseValue(istream &ifs) {
 
         if (c == '{') {
             JObject jobject = parseJObject(ifs);
-            value = &jobject;
+            value = make_shared<JObject>(jobject);
             break;
         } else if (c == '[') {
             JArray jarray = parseArray(ifs);
-            value = &jarray;
+            value = make_shared<JArray>(jarray);
             break;
         } else if (c == '"') {
             JString jstring = parseString(ifs);
-            value = &jstring;
+            value = make_shared<JString>(jstring);
             break;
         } else if (c == ',' || c == '}') {
             break;
@@ -133,12 +123,12 @@ JValue* JReader::parseValue(istream &ifs) {
             c = ifs.get();
             if (isdigit(c)) {
                 JNumber jnumber = parseNumber(ifs, c, true);
-                value = &jnumber;
+                value = make_shared<JNumber>(jnumber);
                 break;
             }
         } else if(isdigit(c)) {
             JNumber jnumber = parseNumber(ifs, c, false);
-            value = &jnumber;
+            value = make_shared<JNumber>(jnumber);
             break;
         } if (!isspace(c)) {
             sstream << c;
@@ -149,9 +139,11 @@ JValue* JReader::parseValue(istream &ifs) {
 
     string str = sstream.str();
     if (str == "false" || str == "true") {
-        value = new JBool(str == "true");
+        JBool boolean(str == "true");
+        value = make_shared<JBool>(boolean);
     } else if (str == "null") {
-        value = new JNull();
+        JNull jnull;
+        value = make_shared<JNull>(jnull);
     } 
     
     return value;

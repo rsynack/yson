@@ -15,14 +15,14 @@ namespace yson {
     class JReader {
         public:
             JReader();
-            JDocument parse(const char* filename);
+            JDocument parseFile(const char* filename);
             JDocument parse(std::istream &ifs);
             JDocument parse(std::string json);
 
         private:
             JObject parseJObject(std::istream &ifs);
             void parseAttribute(std::istream &ifs, JObject &obj);
-            JValue* parseValue(std::istream &ifs);
+            std::shared_ptr<JValue> parseValue(std::istream &ifs);
             JArray parseArray(std::istream &ifs);
             JString parseString(std::istream &ifs);
             JNumber parseNumber(std::istream &ifs, char c, bool negative);

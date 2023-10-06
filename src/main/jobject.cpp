@@ -63,9 +63,13 @@ void JObject::addDate(string name, time_t time) {
 }
 
 shared_ptr<JNumber> JObject::getNumber(string name) {
-    shared_ptr<JNumber> value =  dynamic_pointer_cast<JNumber>(this->values.at(name));
-    if (value) {
-        return value;
+
+    if(!this->values.empty() && this->values.find(name) != this->values.end()) {
+        shared_ptr<JValue> baseValue = this->values.at(name);
+        shared_ptr<JNumber> value =  dynamic_pointer_cast<JNumber>(baseValue);
+        if (value) {
+            return value;
+        }
     }
 
     throw InvalidTypeError(name);

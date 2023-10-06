@@ -7,3 +7,4 @@
 #include "jdate_test.hpp"
 #include "jarray_test.hpp"
 #include "jobject_test.hpp"
+#include "jreader_test.hpp"
