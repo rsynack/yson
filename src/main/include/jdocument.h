@@ -4,7 +4,7 @@
 #include "jvalue.h"
 #include "jobject.h"
 #include "jarray.h"
-#include "invalid_root_error.h"
+#include "error/invalid_root_error.h"
 
 #include <memory>
 #include <string>

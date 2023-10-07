@@ -5,7 +5,7 @@
 #include "jobject.h"
 #include "jnumber.h"
 #include "jbool.h"
-#include "invalid_type_error.h"
+#include "error/invalid_type_error.h"
 
 #include <vector>
 #include <memory>

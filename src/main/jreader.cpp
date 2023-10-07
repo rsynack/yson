@@ -5,7 +5,7 @@
 #include "include/jstring.h"
 #include "include/jnumber.h"
 #include "include/jnull.h"
-#include "include/root_not_found_error.h"
+#include "include/error/root_not_found_error.h"
 
 #include <sstream>
 #include <fstream>

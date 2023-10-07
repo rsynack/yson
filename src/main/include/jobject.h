@@ -5,7 +5,7 @@
 #include "jarray.h"
 #include "jnull.h"
 #include "jnumber.h"
-#include "invalid_type_error.h"
+#include "error/invalid_type_error.h"
 
 #include <string>
 #include <vector>

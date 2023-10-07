@@ -6,7 +6,7 @@
 #include "include/jstring.h"
 #include "include/jarray.h"
 #include "include/jbool.h"
-#include "include/invalid_type_error.h"
+#include "include/error/invalid_type_error.h"
 
 #include <sstream>
 
