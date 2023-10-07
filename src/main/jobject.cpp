@@ -63,43 +63,22 @@ void JObject::addDate(string name, time_t time) {
 }
 
 shared_ptr<JNumber> JObject::getNumber(string name) {
-
-    if(!this->values.empty() && this->values.find(name) != this->values.end()) {
-        shared_ptr<JValue> baseValue = this->values.at(name);
-        shared_ptr<JNumber> value =  dynamic_pointer_cast<JNumber>(baseValue);
-        if (value) {
-            return value;
-        }
-    }
-
-    throw InvalidTypeError(name);
+    return getValue<JNumber>(name);
 }
 
 bool JObject::getBoolean(string name) {
-    shared_ptr<JBool> value = dynamic_pointer_cast<JBool>(this->values.at(name));
-    if (value) {
-        return value->getValue();
-    }
-
-    throw InvalidTypeError(name);
+    shared_ptr<JBool> value = getValue<JBool>(name);
+    return value->getValue();
 }
 
 string JObject::getString(string name) {
-    shared_ptr<JString> value = dynamic_pointer_cast<JString>(this->values.at(name));
-    if (value) {
-        return value->getValue();
-    }
-
-    throw InvalidTypeError(name);
+    shared_ptr<JString> value = getValue<JString>(name);
+    return value->getValue();
 }
 
 time_t JObject::getDate(string name) {
-    shared_ptr<JDate> value = dynamic_pointer_cast<JDate>(this->values.at(name));
-    if (value) {
-        return value->getValue();
-    }
-
-    throw InvalidTypeError(name);
+    shared_ptr<JDate> value =  getValue<JDate>(name);
+    return value->getValue();
 }
 
 void JObject::remove(string name) {

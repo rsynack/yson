@@ -5,6 +5,7 @@
 #include "jarray.h"
 #include "jnull.h"
 #include "jnumber.h"
+#include "invalid_type_error.h"
 
 #include <string>
 #include <vector>
@@ -21,6 +22,18 @@ namespace yson {
             std::map<std::string, std::shared_ptr<JValue>> values;
             std::vector<std::string> keys;
             std::map<std::string, int> index;
+            
+            template<typename T>
+            std::shared_ptr<T> getValue(std::string name) {
+                if (!this->values.empty() && this->values.find(name) != this->values.end()) {
+                    std::shared_ptr<T> value = std::dynamic_pointer_cast<T>(this->values.at(name));
+                    if (value) {
+                        return value;
+                    }
+                }
+
+                throw InvalidTypeError(name);
+            }
 
         public:
             JObject();
