@@ -93,7 +93,7 @@ void JReader::parseAttribute(istream &ifs, JObject &obj) {
     }
 
     if (value.get() != nullptr) {
-        obj._addValue(attrName, value);
+        obj._addValue(attrName, value, {});
     }
 }
 

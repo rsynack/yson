@@ -15,9 +15,19 @@
 
 namespace yson {
  
+    class JReader;
     class JArray;
 
     class JObject : public JValue {
+
+        class AddValueKey {
+            friend JReader;
+
+            private:
+                AddValueKey() {}
+                AddValueKey(AddValueKey const&) = default;
+        };
+
         private:
             std::map<std::string, std::shared_ptr<JValue>> values;
             std::vector<std::string> keys;
@@ -35,15 +45,18 @@ namespace yson {
                 throw InvalidTypeError(name);
             }
 
-        public:
-            JObject();
-
             template<typename T>
             void _addValue(std::string name, T value) {
                 this->keys.push_back(name);
                 this->index.emplace(make_pair(name, this->keys.size() - 1));
                 this->values.emplace(make_pair(name, value));
             }
+
+        public:
+            JObject();
+
+            template<typename T>
+            void _addValue(std::string name, T value, AddValueKey) { this->_addValue(name, value); };
 
             void addValue(std::string name, JObject value);
             void addValue(std::string name, JArray value);
